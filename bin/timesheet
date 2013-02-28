@@ -1,6 +1,7 @@
 #!/usr/bin/env ruby
 
 require 'date'
+require 'csv'
 
 class Date
   def weekend?
@@ -16,16 +17,18 @@ end
 
 m = d.month
 
-while (d.month == m) do
-  if d.weekend?
-    puts
-  else
-    puts d
-    puts d
-    puts
+CSV do |csv|
+  csv << ['Date', 'Start time', 'Emd time', 'Duration', 'Description']
+  while (d.month == m) do
+    if d.weekend?
+      csv << Array.new(5, '')
+    else
+      csv <<  [d,  '9:00', '13:30', '', '']
+      csv <<  [d, '15:30', '19:30', '', '']
+      csv <<  Array.new(5, '')
+    end
+    d += 1
   end
-  d += 1
+
 end
-
-
 
