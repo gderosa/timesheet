@@ -18,7 +18,7 @@ end
 m = d.month
 
 CSV do |csv|
-  csv << ['Date', 'Start time', 'Emd time', 'Duration', 'Description']
+  csv << ['Date', 'Start time', 'End time', 'Duration', 'Description']
   while (d.month == m) do
     if d.weekend?
       csv << Array.new(5, '')
