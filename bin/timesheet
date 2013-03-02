@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
 require 'date'
-require 'csv'
+require 'google_drive'
 
 class Date
   def weekend?
@@ -9,26 +9,29 @@ class Date
   end
 end
 
+class Timesheet
+  def initialize(h={:configfile => "#{ENV['HOME']}/.timesheet.yml"})
+    @config = YAML.load File.read h[:configfile] # TODO: not from file
+  end
+end
+
 begin
   d = Date.parse ARGV.join ' '
 rescue ArgumentError
-  d = Date.parse Date.today.strftime "%Y-%m-01" # this month
+  d = Date.parse Date.today.strftime "%Y-%m-01" # this month, 1st day
 end
 
 m = d.month
 
-CSV do |csv|
-  csv << ['Date', 'Start time', 'End time', 'Duration', 'Description']
-  while (d.month == m) do
-    if d.weekend?
-      csv << Array.new(5, '')
-    else
-      csv <<  [d,  '9:00', '13:30', '', '']
-      csv <<  [d, '15:30', '19:30', '', '']
-      csv <<  Array.new(5, '')
-    end
-    d += 1
-  end
+ts = Timesheet.new
 
+while (d.month == m) do
+  p d
+  if d.weekend?
+    # your code
+  else
+    # your code
+  end
+  d += 1
 end
 
