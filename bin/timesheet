@@ -13,6 +13,10 @@ class Timesheet
   def initialize(h={:configfile => "#{ENV['HOME']}/.timesheet.yml"})
     @config = YAML.load File.read h[:configfile] # TODO: not from file
   end
+
+  def connect
+    @google_drive = GoogleDrive.login(@config[:username], @config[:password])
+  end
 end
 
 begin
@@ -23,7 +27,8 @@ end
 
 m = d.month
 
-ts = Timesheet.new
+sheet = Timesheet.new
+sheet.connect
 
 while (d.month == m) do
   p d
