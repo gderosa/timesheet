@@ -41,17 +41,20 @@ row = 1
 col = 1
 
 while (d.month == m) do
-  p d
+  # p d
   if d.weekend?
-    # your code
+    worksheet[row, col] = nil
+    row += 1
   else
     worksheet[row, col] = d
+    row += 1
+    worksheet[row, col] = d
+    row += 1
+    worksheet[row, col] = nil
+    row += 1
   end
-  d   += 1
-  row += 1
+  d += 1
 end
 
 worksheet.save
-
-
 
