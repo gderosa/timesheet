@@ -38,7 +38,11 @@ timesheet = Timesheet.new
 timesheet.connect
 worksheet = timesheet.file_by_title(Timesheet::DEFAULT_PATH).worksheets[0]
 
-row = 1
+worksheet.update_cells 1, 1, [
+  ['Date', 'Start Time', 'End Time', 'Duration', 'Description']
+]
+
+row = 2
 
 while (d.month == m) do
   # p d
@@ -50,13 +54,13 @@ while (d.month == m) do
     row += 1
   else
     worksheet[row, 1] = d
-    worksheet[row, 2] = '09:00'
-    worksheet[row, 3] = '13:30'
+    worksheet[row, 2] = '09.00'
+    worksheet[row, 3] = '13.30'
     worksheet[row, 4] = "=C#{row}-B#{row}"
     row += 1
     worksheet[row, 1] = d
-    worksheet[row, 2] = '15:30'
-    worksheet[row, 3] = '19:30'
+    worksheet[row, 2] = '15.30'
+    worksheet[row, 3] = '19.30'
     worksheet[row, 4] = "=C#{row}-B#{row}"
     row += 1
     worksheet[row, 1] = nil
@@ -68,5 +72,10 @@ while (d.month == m) do
   d += 1
 end
 
+row += 1
+
+worksheet[row, 4] = "=SUM(D2:D#{row-1})"
+
 worksheet.synchronize
+
 
