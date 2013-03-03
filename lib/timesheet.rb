@@ -6,18 +6,28 @@ require 'extensions/date'
 require 'google_drive'
 
 class Timesheet
-  DEFAULT_PATH = ['subdir', 'a', 'sheet']
+  DEFAULT_CONFIG = {
+    :remote_path => 'timesheet/timesheet'
+  }
 
   def initialize(h={:configfile => "#{ENV['HOME']}/.timesheet.yml"})
-    @config = YAML.load File.read h[:configfile] # TODO: not from file
+    @config = DEFAULT_CONFIG.merge(YAML.load(File.read h[:configfile])) 
   end
 
   def connect
     @google_drive = GoogleDrive.login(@config[:username], @config[:password])
   end
 
-  def method_missing(id, *args, &blk)
-    @google_drive.send id, *args, &blk
+  def worksheets
+    spreadsheet.worksheets
   end
+
+  def spreadsheet
+    @google_drive.file_by_title(@config[:remote_path].split('/'))
+  end
+
+  #def method_missing(id, *args, &blk)
+  #  @google_drive.send id, *args, &blk
+  #end
 end
 

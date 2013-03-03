@@ -14,7 +14,7 @@ m = d.month
 
 timesheet = Timesheet.new
 timesheet.connect
-worksheet = timesheet.file_by_title(Timesheet::DEFAULT_PATH).worksheets[0]
+worksheet = timesheet.worksheets[0]
 
 worksheet.update_cells 1, 1, [
   ['Date', 'Start Time', 'End Time', 'Duration', 'Description']
