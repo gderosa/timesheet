@@ -1,3 +1,0 @@
-[submodule "google-drive-ruby"]
-	path = google-drive-ruby
-	url = git@github.com:gderosa/google-drive-ruby.git
