@@ -23,10 +23,13 @@ class Timesheet
   end
 
   def spreadsheet
-    return file if 
-        file = @google_drive.file_by_title(@config[:remote_path].split('/'))
-    STDERR.puts "Spreadsheet #{@config[:remote_path]} must exist (already) in your Google Drive. Create a blank one and it would be just fine."
-    exit 1
+    file = @google_drive.file_by_title(@config[:remote_path].split('/'))
+    if file
+      return file
+    else # TODO: don't do this in lib...
+      STDERR.puts "Spreadsheet #{@config[:remote_path]} must exist (already) in your Google Drive. Create a blank one and it would be just fine."
+      exit 1
+    end
   end
 
   #def method_missing(id, *args, &blk)
