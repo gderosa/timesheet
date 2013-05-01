@@ -27,7 +27,7 @@ class Timesheet
     if file
       return file
     else # TODO: don't do this in lib...
-      STDERR.puts "Spreadsheet #{@config[:remote_path]} must exist (already) in your Google Drive. Create a blank one and it would be just fine."
+      STDERR.puts "ERROR: Spreadsheet \"#{@config[:remote_path]}\" must exist (already) in your Google Drive. Create a blank one and it would be just fine."
       exit 1
     end
   end
